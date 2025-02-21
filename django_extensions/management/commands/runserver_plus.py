@@ -454,6 +454,7 @@ class Command(BaseCommand):
             if self.nopin:
                 os.environ['WERKZEUG_DEBUG_PIN'] = 'off'
             handler = DebuggedApplication(handler, True)
+            handler.trusted_hosts += getattr(settings, 'RUNSERVERPLUS_TRUSTED_HOSTS', [])
 
         runserver_plus_started.send(sender=self)
         run_simple(
